@@ -1,14 +1,24 @@
-<a href='/'>Back to Home</a>
+<a href='/'>
+    <button type="button" class="btn btn-primary">Back to Home</button>
+</a>
+
+<link rel='stylesheet' href="https://bootswatch.com/4/lux/bootstrap.min.css">
 <div class='row'>
     <div class='col-sm-6 col-sm-offset-3'>
         <h1>{{ playlist.title }}</h1>
+        {% if playlist.created_at %}
+        <p class='text-muted'>Created on {{ playlist.created_at.strftime('%A, %d %B, %Y') }}
+            at {{ playlist.created_at.strftime('%I:%M %p') }}</p>
+        {% endif %}
         <h2>{{ playlist.description }}</h2>
         {% for video in playlist.videos %}
             <div class="card"><div class="card-body">
                 <iframe width="420" height="315" src="{{ video }}"></iframe>
             </div></div>
         {% endfor %}
-        <p><a href='/playlists/{{ playlist._id }}/edit'>Edit</a></p>
+        <p><a href='/playlists/{{ playlist._id }}/edit'>
+            <button type="button" class="btn btn-primary">Edit</button>
+        </a></p>
         <p><form method='POST' action='/playlists/{{playlist._id}}'>
             <input type='hidden' name='_method' value='DELETE'>
             <button class='btn btn-primary' type='submit'>Delete</button>
